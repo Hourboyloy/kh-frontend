@@ -4,6 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useAppContext } from "@/context/GlobalContext";
+import { useLocale } from "next-intl";
 const CardsProducts = dynamic(() => import("@/components/CardsProducts"), {
   ssr: false,
 });
@@ -20,6 +21,7 @@ const SmFooter = dynamic(() => import("@/components/SmFooter"), { ssr: false });
 const SmHeader = dynamic(() => import("@/components/SmHeader"), { ssr: false });
 
 function Page() {
+  const locale = useLocale();
   const { token, account, domain } = useAppContext();
   const [products, setProducts] = useState([]);
   const [isPending, setIsPending] = useState(false);
@@ -53,7 +55,7 @@ function Page() {
     <div>
       {isPending && <Loading />}
       <div className="top-0 sticky z-[9] lg:hidden w-full">
-        <SmHeader name={"Khmer24"} currentAt="home" />
+        <SmHeader name={"Khmer24"} currentAt="home" locale={locale} />
       </div>
 
       <div className=" mx-auto max-w-[1104px] pt-5 mb-20 lg:px-0 px-4">
