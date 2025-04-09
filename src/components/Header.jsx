@@ -21,11 +21,6 @@ const SmBtnLogout = dynamic(() => import("./buttons/SmBtnLogout"), {
   ssr: false,
 });
 
-// const DropdownMenuUserAccount = dynamic(
-//   () => import("@/components/DropdownMenuUserAccount"),
-//   { ssr: false }
-// );
-
 import DropdownMenuUserAccount from "@/components/DropdownMenuUserAccount";
 
 const ListSuggestions = dynamic(() => import("@/components/ListSuggestions"), {
@@ -155,7 +150,6 @@ function Header() {
     } else if (
       trimmedSearch &&
       currentRoute !== "/search" &&
-      // currentRoute !== "/category" &&
       currentCategory === "All Category"
     ) {
       router.push(`/search-result?${queryString}`);
@@ -244,6 +238,7 @@ function Header() {
 
     // Navigate to the new URL
     router.push(newUrl);
+    window.location.href = newUrl;
   };
 
   const handelClearHistory = () => {
@@ -361,7 +356,6 @@ function Header() {
           <div>
             <Link
               href="/"
-              locale={locale}
               className="select-none focus:outline-none"
               prefetch={true}
             >
@@ -617,16 +611,11 @@ function Header() {
             <div className="flex items-center space-x-8 pr-[5px]">
               <Link
                 href={"/notification"}
-                locale={locale}
                 className=" focus:outline-none outline-none"
               >
                 <IoNotifications className="text-[25px] text-[#808080] hover:cursor-pointer hover:text-gray-800 transition-all duration-200" />
               </Link>
-              <Link
-                href={"/"}
-                locale={locale}
-                className=" focus:outline-none outline-none"
-              >
+              <Link href={"/"} className=" focus:outline-none outline-none">
                 <BsChatDotsFill className="text-[23.5px] text-[#808080] hover:cursor-pointer hover:text-gray-800 transition-all duration-200" />
               </Link>
 
@@ -661,7 +650,6 @@ function Header() {
             >
               <Link
                 href="/login"
-                locale={locale}
                 prefetch={true}
                 className="text-[#016B9D] font-bold select-none focus:outline-none tracking-wide text-[16.5px] translate-y-[1px] text-nowrap"
               >
@@ -673,7 +661,6 @@ function Header() {
               <Link
                 prefetch={true}
                 href="/register"
-                locale={locale}
                 className="text-[#016B9D] font-bold select-none focus:outline-none tracking-wide text-[16.5px] translate-y-[1px] text-nowrap"
               >
                 {t("register")}
@@ -685,7 +672,6 @@ function Header() {
             href={`${
               account !== undefined && account !== null ? "/post" : "/login"
             }`}
-            locale={locale}
             className={`text-white bg-[#FF8900] flex items-center space-x-[4.5px] py-[5px] rounded-md select-none focus:outline-none ${
               locale == "en" ? " text-xl px-[12.8px]" : " text-lg px-[8px]"
             }`}

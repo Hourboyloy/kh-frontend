@@ -8,11 +8,9 @@ import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { MdAddAPhoto } from "react-icons/md";
 import { useAppContext } from "@/context/GlobalContext";
-import { useLocale } from "next-intl";
 
 function SmFooter() {
   const { account } = useAppContext();
-  const locale = useLocale();
   const pathname = usePathname();
 
   return (
@@ -20,7 +18,6 @@ function SmFooter() {
       <div className="flex items-center justify-between md:px-10 px-6 md:py-2 py-2 md:text-5xl text-[27px]">
         <Link
           href="/"
-          locale={locale}
           className={`select-none focus:outline-none outline-none ${
             pathname === "/"
               ? "text-[#0096DE]"
@@ -32,7 +29,6 @@ function SmFooter() {
 
         <Link
           href={"/notification"}
-          locale={locale}
           className={`select-none focus:outline-none outline-none ${
             pathname === "/notification"
               ? "text-[#0096DE]"
@@ -46,7 +42,6 @@ function SmFooter() {
           href={`${
             account !== undefined && account !== null ? "/post" : "/login"
           }`}
-          locale={locale}
           className="select-none focus:outline-none outline-none"
         >
           <div className="relative md:w-[80px] md:h-[80px] w-[45px] h-[45px] rounded-full bg-[#FF8900] overflow-hidden text-white p-2 flex items-center justify-center">
@@ -56,7 +51,6 @@ function SmFooter() {
 
         <Link
           href="/"
-          locale={locale}
           className={`select-none focus:outline-none outline-none`}
         >
           <IoChatbubbleEllipsesSharp />
@@ -66,7 +60,6 @@ function SmFooter() {
           href={`${
             account !== undefined && account !== null ? "/account" : "/login"
           }`}
-          locale={locale}
           className={`select-none focus:outline-none outline-none ${
             pathname === "/account"
               ? "text-[#0096DE]"

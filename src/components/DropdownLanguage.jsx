@@ -17,6 +17,8 @@ function DropdownLanguage({
       `/${newLocale}`
     );
     router.push(currentPath);
+
+    window.location.href = currentPath;
   };
 
   const handleKeyDown = useCallback(

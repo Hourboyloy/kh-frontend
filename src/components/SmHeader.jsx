@@ -21,15 +21,27 @@ function SmHeader({
 }) {
   const router = useRouter();
 
+  // const changeLanguage = (newLocale) => {
+  //   if (!router) return;
+
+  //   const currentPath = window.location.pathname.replace(
+  //     /^\/(kh|en)/,
+  //     `/${newLocale}`
+  //   );
+
+  //   router.push(currentPath);
+  // };
+
   const changeLanguage = (newLocale) => {
+    const router = useRouter();
+
     if (!router) return;
 
     const currentPath = window.location.pathname.replace(
       /^\/(kh|en)/,
       `/${newLocale}`
     );
-
-    router.push(currentPath);
+    window.location.href = currentPath;
   };
 
   return (
