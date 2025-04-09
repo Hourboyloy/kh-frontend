@@ -25,7 +25,7 @@ const shuffleArray = (array) => {
 
 // Create a custom provider component
 export function AppProvider({ children }) {
-  const domain = useMemo(() => "http://localhost:8081", []);
+  const domain = useMemo(() => process.env.NEXT_PUBLIC_DOMAIN_NAME, []);
   const [categories, setCategories] = useState([]);
   const [userData, setUserData] = useState({
     account: undefined,
