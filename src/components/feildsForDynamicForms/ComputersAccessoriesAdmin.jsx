@@ -1,0 +1,1080 @@
+"use client";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { laptopBrands } from "@/utils/LaptopBrands";
+import { desktopBrands } from "@/utils/DesktopBrands";
+import { allinOneBrands } from "@/utils/AllinOneBrands";
+import { monitorBrands } from "@/utils/monitorBrands";
+import { printerScannerBrands } from "@/utils/PrinterScannerBrands";
+import { partsAccessoriesType } from "@/utils/partsAccessoriesType";
+import { useTranslations } from "next-intl";
+const Template = dynamic(() => import("@/components/modalSelector/Template"), {
+  ssr: false,
+});
+
+function ComputersAccessoriesAdmin({ AllFields, setFields, fields, locale }) {
+  const t = useTranslations("ComputersAccessories");
+
+  const [toggleLaptopBrand, setToggleLaptopBrand] = useState(false);
+  const [toggleDesktopBrand, setToggleDesktopBrand] = useState(false);
+  const [toggleAllInOneBrand, setToggleAllInOneBrand] = useState(false);
+  const [toggleMonitorBrand, setToggleMonitorBrand] = useState(false);
+  const [togglePrinterScannerBrand, setTogglePrinterScannerBrand] =
+    useState(false);
+  const [toggleType, setToggleType] = useState(false);
+
+  const [formData, setFormData] = useState({
+    discount: "",
+    discountAs: "%",
+    condition: "",
+    freeDelivery: false,
+    price: "",
+    storage: "",
+    laptopBrand: "",
+    laptopModel: "",
+    desktopBrand: "",
+    desktopModel: "",
+    allInOneBrand: "",
+    allInOneModel: "",
+    monitorBrand: "",
+    monitorModel: "",
+    printerScannerBrand: "",
+    printerScannerModel: "",
+    type: "",
+  });
+
+  const handleToggleLaptopBrand = () => {
+    setToggleLaptopBrand(!toggleLaptopBrand);
+  };
+
+  const handleToggleDesktopBrand = () => {
+    setToggleDesktopBrand(!toggleDesktopBrand);
+  };
+
+  const handleToggleAllInOneBrand = () => {
+    setToggleAllInOneBrand(!toggleAllInOneBrand);
+  };
+
+  const handleToggleMonitorBrand = () => {
+    setToggleMonitorBrand(!toggleMonitorBrand);
+  };
+
+  const handleTogglePrinterScannerBrand = () => {
+    setTogglePrinterScannerBrand(!togglePrinterScannerBrand);
+  };
+
+  const handleToggleType = () => {
+    setToggleType(!toggleType);
+  };
+
+  const handleValidatedInput = (key, value) => {
+    const validValue = value.replace(/[^0-9.]/g, "");
+    setFormData((prev) => ({ ...prev, [key]: validValue }));
+  };
+
+  const handleDiscount = (value) => {
+    const filteredValue = value.replace(/[^0-9.]/g, "");
+    const isValidDecimal = /^(\d+(\.\d*)?)?$/.test(filteredValue);
+    if (isValidDecimal) {
+      setFormData((prev) => ({ ...prev, discount: filteredValue }));
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  return (
+    <div>
+      <Template
+        title={"Brand"}
+        name={"laptopBrand"}
+        toggle={toggleLaptopBrand}
+        value={formData.laptopBrand}
+        setValue={setFormData}
+        handleToggle={handleToggleLaptopBrand}
+        array={laptopBrands}
+        path={"computersAccessories"}
+      />
+
+      <Template
+        title={"Brand"}
+        name={"desktopBrand"}
+        toggle={toggleDesktopBrand}
+        value={formData.desktopBrand}
+        setValue={setFormData}
+        handleToggle={handleToggleDesktopBrand}
+        array={desktopBrands}
+        path={"computersAccessories"}
+      />
+
+      <Template
+        title={"Brand"}
+        name={"allInOneBrand"}
+        toggle={toggleAllInOneBrand}
+        value={formData.allInOneBrand}
+        setValue={setFormData}
+        handleToggle={handleToggleAllInOneBrand}
+        array={allinOneBrands}
+        path={"computersAccessories"}
+      />
+
+      <Template
+        title={"Brand"}
+        name={"monitorBrand"}
+        toggle={toggleMonitorBrand}
+        value={formData.monitorBrand}
+        setValue={setFormData}
+        handleToggle={handleToggleMonitorBrand}
+        array={monitorBrands}
+        path={"computersAccessories"}
+      />
+
+      <Template
+        title={"Brand"}
+        name={"printerScannerBrand"}
+        toggle={togglePrinterScannerBrand}
+        value={formData.printerScannerBrand}
+        setValue={setFormData}
+        handleToggle={handleTogglePrinterScannerBrand}
+        array={printerScannerBrands}
+        path={"computersAccessories"}
+      />
+
+      <Template
+        title={"Type"}
+        name={"type"}
+        toggle={toggleType}
+        value={formData.type}
+        setValue={setFormData}
+        handleToggle={handleToggleType}
+        array={partsAccessoriesType}
+        path={"computersAccessories"}
+      />
+
+      <div className=" px-[20px] space-y-[17.5px]">
+        {(AllFields ? AllFields : fields)?.map((field, index) => {
+          switch (field) {
+            case "1laptopBrand":
+              return (
+                <div className="space-y-[17.5px]" key={index}>
+                  <div className="flex items-end">
+                    <div className="space-y-[4px] w-full">
+                      <label className="text-[15px]">
+                        {t("brand")}{" "}
+                        <span className="text-red-600">
+                          {" "}
+                          *{" "}
+                          <span className="text-xs">
+                            Required for Laptop brand
+                          </span>
+                        </span>
+                      </label>
+                      <div
+                        onClick={handleToggleLaptopBrand}
+                        className="border bg-white border-gray-300 h-[38px] rounded-md relative w-full flex items-center px-3"
+                      >
+                        {formData.laptopBrand}
+                        <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                          <IoMdArrowDropdown
+                            className="text-gray-800"
+                            size={20}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`pl-2`}>
+                      <input
+                        type="checkbox"
+                        value="1laptopBrand"
+                        name="1laptopBrand"
+                        checked={fields.includes("1laptopBrand")}
+                        onChange={(e) => {
+                          const updatedFields = e.target.checked
+                            ? [...fields, e.target.value]
+                            : fields.filter((item) => item !== e.target.value);
+                          setFields(updatedFields);
+                        }}
+                        className="h-4 w-4"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-[4px] w-full pr-6">
+                    <label className="text-[15px] block">
+                      {t("model")} <span className="text-red-600"> *</span>
+                    </label>
+                    <input
+                      value={formData.laptopBrand ? formData.laptopModel : ""}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          laptopModel: e.target.value,
+                        })
+                      }
+                      type="text"
+                      disabled={!formData.laptopBrand}
+                      className="w-full text-gray-800 px-3 focus:border-blue-300 focus:ring-4 focus:ring-[#C9DFFF] py-[6.2px] border rounded-md outline-none focus:outline-none"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "2desktopBrand":
+              return (
+                <div className="space-y-[17.5px]" key={index}>
+                  <div className="flex items-end">
+                    <div className="space-y-[4px] w-full">
+                      <label className="text-[15px]">
+                        {t("brand")}{" "}
+                        <span className="text-red-600">
+                          {" "}
+                          *{" "}
+                          <span className="text-xs">
+                            Required for Desktop brand
+                          </span>
+                        </span>
+                      </label>
+                      <div
+                        onClick={handleToggleDesktopBrand}
+                        className="border bg-white border-gray-300 h-[38px] rounded-md relative w-full flex items-center px-3"
+                      >
+                        {formData.desktopBrand}
+                        <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                          <IoMdArrowDropdown
+                            className="text-gray-800"
+                            size={20}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`pl-2`}>
+                      <input
+                        type="checkbox"
+                        value="2desktopBrand"
+                        name="2desktopBrand"
+                        checked={fields.includes("2desktopBrand")}
+                        onChange={(e) => {
+                          const updatedFields = e.target.checked
+                            ? [...fields, e.target.value]
+                            : fields.filter((item) => item !== e.target.value);
+                          setFields(updatedFields);
+                        }}
+                        className="h-4 w-4"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-[4px] w-full pr-6">
+                    <label className="text-[15px] block">
+                      {t("model")} <span className="text-red-600"> *</span>
+                    </label>
+                    <input
+                      value={formData.desktopBrand ? formData.desktopModel : ""}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          desktopModel: e.target.value,
+                        })
+                      }
+                      type="text"
+                      disabled={!formData.desktopBrand}
+                      className="w-full text-gray-800 px-3 focus:border-blue-300 focus:ring-4 focus:ring-[#C9DFFF] py-[6.2px] border rounded-md outline-none focus:outline-none"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "3allInOneBrand":
+              return (
+                <div className="space-y-[17.5px]" key={index}>
+                  <div className="flex items-end">
+                    <div
+                      onClick={handleToggleAllInOneBrand}
+                      className="space-y-[4px] w-full"
+                    >
+                      <label className="text-[15px]">
+                        {t("brand")}{" "}
+                        <span className="text-red-600">
+                          {" "}
+                          *{" "}
+                          <span className="text-xs">
+                            Required for All-in-One brand
+                          </span>
+                        </span>
+                      </label>
+                      <div className="border bg-white border-gray-300 h-[38px] rounded-md relative w-full flex items-center px-3">
+                        {formData.allInOneBrand}
+                        <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                          <IoMdArrowDropdown
+                            className="text-gray-800"
+                            size={20}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`pl-2`}>
+                      <input
+                        type="checkbox"
+                        value="3allInOneBrand"
+                        name="3allInOneBrand"
+                        checked={fields.includes("3allInOneBrand")}
+                        onChange={(e) => {
+                          const updatedFields = e.target.checked
+                            ? [...fields, e.target.value]
+                            : fields.filter((item) => item !== e.target.value);
+                          setFields(updatedFields);
+                        }}
+                        className="h-4 w-4"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-[4px] w-full pr-6">
+                    <label className="text-[15px] block">
+                      {t("model")} <span className="text-red-600"> *</span>
+                    </label>
+                    <input
+                      value={
+                        formData.allInOneBrand ? formData.allInOneModel : ""
+                      }
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          allInOneModel: e.target.value,
+                        })
+                      }
+                      type="text"
+                      disabled={!formData.allInOneBrand}
+                      className="w-full text-gray-800 px-3 focus:border-blue-300 focus:ring-4 focus:ring-[#C9DFFF] py-[6.2px] border rounded-md outline-none focus:outline-none"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "4monitorBrand":
+              return (
+                <div className="space-y-[17.5px]" key={index}>
+                  <div className="flex items-end">
+                    <div
+                      onClick={handleToggleMonitorBrand}
+                      className="space-y-[4px] w-full"
+                    >
+                      <label className="text-[15px]">
+                        {t("brand")}{" "}
+                        <span className="text-red-600">
+                          {" "}
+                          *{" "}
+                          <span className="text-xs">
+                            Required for Monitor brand
+                          </span>
+                        </span>
+                      </label>
+                      <div className="border bg-white border-gray-300 h-[38px] rounded-md relative w-full flex items-center px-3">
+                        {formData.monitorBrand}
+                        <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                          <IoMdArrowDropdown
+                            className="text-gray-800"
+                            size={20}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`pl-2`}>
+                      <input
+                        type="checkbox"
+                        value="4monitorBrand"
+                        name="4monitorBrand"
+                        checked={fields.includes("4monitorBrand")}
+                        onChange={(e) => {
+                          const updatedFields = e.target.checked
+                            ? [...fields, e.target.value]
+                            : fields.filter((item) => item !== e.target.value);
+                          setFields(updatedFields);
+                        }}
+                        className="h-4 w-4"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-[4px] w-full pr-6">
+                    <label className="text-[15px] block">
+                      {t("model")} <span className="text-red-600"> *</span>
+                    </label>
+                    <input
+                      value={formData.monitorBrand ? formData.monitorModel : ""}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          monitorModel: e.target.value,
+                        })
+                      }
+                      type="text"
+                      disabled={!formData.monitorBrand}
+                      className="w-full text-gray-800 px-3 focus:border-blue-300 focus:ring-4 focus:ring-[#C9DFFF] py-[6.2px] border rounded-md outline-none focus:outline-none"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "5printerScannerBrand":
+              return (
+                <div className="space-y-[17.5px]" key={index}>
+                  <div className="flex items-end">
+                    <div
+                      onClick={handleTogglePrinterScannerBrand}
+                      className="space-y-[4px] w-full"
+                    >
+                      <label className="text-[15px]">
+                        {t("brand")}{" "}
+                        <span className="text-red-600">
+                          {" "}
+                          *{" "}
+                          <span className="text-xs">
+                            Required for Printer & Scanner brand
+                          </span>
+                        </span>
+                      </label>
+                      <div className="border bg-white border-gray-300 h-[38px] rounded-md relative w-full flex items-center px-3">
+                        {formData.printerScannerBrand}
+                        <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                          <IoMdArrowDropdown
+                            className="text-gray-800"
+                            size={20}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`pl-2`}>
+                      <input
+                        type="checkbox"
+                        value="5printerScannerBrand"
+                        name="5printerScannerBrand"
+                        checked={fields.includes("5printerScannerBrand")}
+                        onChange={(e) => {
+                          const updatedFields = e.target.checked
+                            ? [...fields, e.target.value]
+                            : fields.filter((item) => item !== e.target.value);
+                          setFields(updatedFields);
+                        }}
+                        className="h-4 w-4"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-[4px] w-full pr-6">
+                    <label className="text-[15px] block">
+                      {t("model")} <span className="text-red-600"> *</span>
+                    </label>
+                    <input
+                      value={
+                        formData.printerScannerBrand
+                          ? formData.printerScannerModel
+                          : ""
+                      }
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          printerScannerModel: e.target.value,
+                        })
+                      }
+                      type="text"
+                      disabled={!formData.printerScannerBrand}
+                      className="w-full text-gray-800 px-3 focus:border-blue-300 focus:ring-4 focus:ring-[#C9DFFF] py-[6.2px] border rounded-md outline-none focus:outline-none"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "6type":
+              return (
+                <div key={index} className="flex items-end">
+                  <div
+                    onClick={handleToggleType}
+                    className="space-y-[4px] w-full"
+                  >
+                    <label className="text-[15px]">
+                      {t("type")}{" "}
+                      <span className="text-red-600">
+                        {" "}
+                        *{" "}
+                        <span className="text-xs">
+                          Required for Printer & Scanner Type
+                        </span>
+                      </span>
+                    </label>
+                    <div className="border bg-white border-gray-300 h-[38px] rounded-md relative w-full flex items-center px-3">
+                      {formData.type}
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <IoMdArrowDropdown
+                          className="text-gray-800"
+                          size={20}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="6type"
+                      name="6type"
+                      checked={fields.includes("6type")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "7condition":
+              return (
+                <div key={index} className="flex items-end">
+                  <div className="w-full space-y-[4px]">
+                    <label className="text-[15px]">
+                      {t("condition")} <span className="text-red-600">*</span>
+                    </label>
+                    <div className="flex items-center space-x-4">
+                      {["new", "used"].map((value) => {
+                        const isSelected = formData.condition === value;
+                        const selectedStyles = isSelected
+                          ? "bg-[#E0F1F9] border-blue-300 text-blue-400"
+                          : "border-gray-300 text-gray-800";
+
+                        const labelMap = {
+                          new: locale === "en" ? "New" : "ថ្មី",
+                          used: locale === "en" ? "Used" : "មួយទឹក",
+                        };
+
+                        return (
+                          <label
+                            key={value}
+                            className={`w-full bg-white text-center py-[6.2px] border rounded-md cursor-pointer select-none ${selectedStyles}`}
+                          >
+                            <input
+                              type="radio"
+                              name="condition"
+                              value={value}
+                              checked={isSelected}
+                              className="hidden"
+                              onChange={handleInputChange}
+                              aria-label={value}
+                            />
+                            {labelMap[value]}
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="7condition"
+                      name="7condition"
+                      checked={fields.includes("7condition")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "8storage":
+              return (
+                <div key={index} className="flex items-end">
+                  <div className="space-y-[4px] w-full">
+                    <label className="text-[15px]">
+                      {t("storage")} <span className="text-red-600"> *</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        className={`appearance-none w-full border border-gray-300 focus:outline-none rounded-md py-[6.2px] px-3 focus:ring-4 focus:ring-[#C9DFFF] focus:border-blue-300`}
+                      >
+                        <option value=""></option>
+                        <option value="128GB & Under">128GB & Under</option>
+                        <option value="250GB - 256GB">250GB - 256GB</option>
+                        <option value="250GB - 256GB">500GB - 512GB</option>
+                        <option value="1TB">1TB</option>
+                        <option value="2TB & Larger">2TB & Larger</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <IoMdArrowDropdown
+                          className="text-gray-800"
+                          size={20}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="8storage"
+                      name="8storage"
+                      checked={fields.includes("8storage")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "9ram":
+              return (
+                <div key={index} className="flex items-end">
+                  <div className="space-y-[4px] w-full">
+                    <label className="text-[15px]">
+                      {t("ram")} <span className="text-red-600"> *</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        className={`appearance-none w-full border border-gray-300 focus:outline-none rounded-md py-[6.2px] px-3 focus:ring-4 focus:ring-[#C9DFFF] focus:border-blue-300`}
+                      >
+                        <option value=""></option>
+                        <option value="2GB & Under">2GB & Under</option>
+                        <option value="3GB">3GB</option>
+                        <option value="4GB">3GB</option>
+                        <option value="5GB">5GB</option>
+                        <option value="6GB">6GB</option>
+                        <option value="8GB">8GB</option>
+                        <option value="12GB">12GB</option>
+                        <option value="16GB">16GB</option>
+                        <option value="24GB">24GB</option>
+                        <option value="32GB">32GB</option>
+                        <option value="64GB">64GB</option>
+                        <option value="64GB & Larger">64GB & Larger</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <IoMdArrowDropdown
+                          className="text-gray-800"
+                          size={20}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="9ram"
+                      name="9ram"
+                      checked={fields.includes("9ram")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "10cpu":
+              return (
+                <div key={index} className="flex items-end font-sans">
+                  <div className="space-y-[4px] w-full">
+                    <label className="text-[15px]">
+                      {t("cpu")} <span className="text-red-600"> *</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        className={`appearance-none w-full border border-gray-300 focus:outline-none rounded-md py-[6.2px] px-3 focus:ring-4 focus:ring-[#C9DFFF] focus:border-blue-300`}
+                      >
+                        <option value=""></option>
+                        <option value="M1">M1</option>
+                        <option value="M1 Pro">M1 Pro</option>
+                        <option value="M1 Max">M1 Max</option>
+                        <option value="M1 Ultra">M1 Ultra</option>
+
+                        <option value="M2">M2</option>
+                        <option value="M2 Pro">M2 Pro</option>
+                        <option value="M2 Max">M2 Max</option>
+                        <option value="M2 Ultra">M2 Ultra</option>
+
+                        <option value="M3">m3</option>
+                        <option value="M3 Pro">m3 pro</option>
+                        <option value="M3 Max">m3 max</option>
+                        <option value="M3 Ultra">m3 ultra</option>
+
+                        <option value="Intel Core 2">Intel Core 2</option>
+                        <option value="Intel Core i3">Intel Core i3</option>
+                        <option value="Intel Core i5">Intel Core i5</option>
+                        <option value="Intel Core i7">Intel Core i7</option>
+                        <option value="Intel Core i9">Intel Core i9</option>
+                        <option value="Intel Xeon">Intel Xeon</option>
+                        <option value="Intel Celeron">Intel Celeron</option>
+                        <option value="Intel Pentium">Intel Pentium</option>
+
+                        <option value="AMD Ryzen">AMD Ryzen</option>
+                        <option value="AMD Ryzen 3">AMD Ryzen 3</option>
+                        <option value="AMD Ryzen 5">AMD Ryzen 5</option>
+                        <option value="AMD Ryzen 7">AMD Ryzen 7</option>
+                        <option value="AMD Ryzen 9">AMD Ryzen 9</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <IoMdArrowDropdown
+                          className="text-gray-800"
+                          size={20}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="10cpu"
+                      name="10cpu"
+                      checked={fields.includes("10cpu")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "11vga":
+              return (
+                <div key={index} className="flex items-end font-sans">
+                  <div className="space-y-[4px] w-full">
+                    <label className="text-[15px]">
+                      {t("vga")} <span className="text-red-600"> *</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        className={`appearance-none w-full border border-gray-300 focus:outline-none rounded-md py-[6.2px] px-3 focus:ring-4 focus:ring-[#C9DFFF] focus:border-blue-300`}
+                      >
+                        <option value=""></option>
+                        <option value="Integrated">Integrated</option>
+                        <option value="2GB & under">2GB & under</option>
+                        <option value="4GB">4GB</option>
+                        <option value="6GB">6GB</option>
+                        <option value="8GB">8GB</option>
+                        <option value="12GB">12GB</option>
+                        <option value="16GB & Larger">16GB & Larger</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <IoMdArrowDropdown
+                          className="text-gray-800"
+                          size={20}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="11vga"
+                      name="11vga"
+                      checked={fields.includes("11vga")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "12screenSize":
+              return (
+                <div key={index} className="flex items-end">
+                  <div className="space-y-[4px] w-full">
+                    <label className="text-[15px]">
+                      {t("screenSize")}
+                      <span className="text-red-600"> * </span>
+                      <span className="text-red-600 text-xs">
+                        Small Screen Size
+                      </span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        className={`appearance-none w-full border border-gray-300 focus:outline-none rounded-md py-[6.2px] px-3 focus:ring-4 focus:ring-[#C9DFFF] focus:border-blue-300`}
+                      >
+                        <option value=""></option>
+                        <option value="10.9 & Under">10.9&quot; & Under</option>
+                        <option value="11 - 11.9">11&quot; - 11.9&quot;</option>
+                        <option value="12 - 12.9">12&quot; - 12.9&quot;</option>
+                        <option value="13 - 13.9">13&quot; - 13.9&quot;</option>
+                        <option value="14 - 14.9">14&quot; - 14.9&quot;</option>
+                        <option value="15 - 15.9">15&quot; - 15.9&quot;</option>
+                        <option value="16 - 16.9">16&quot; - 16.9&quot;</option>
+                        <option value="17 & Larger">17&quot; & Larger</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <IoMdArrowDropdown
+                          className="text-gray-800"
+                          size={20}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="12screenSize"
+                      name="12screenSize"
+                      checked={fields.includes("12screenSize")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "13screenSize":
+              return (
+                <div key={index} className="flex items-end">
+                  <div className="space-y-[4px] w-full">
+                    <label className="text-[15px]">
+                      {t("screenSize")}
+                      <span className="text-red-600"> * </span>
+                      <span className="text-red-600 text-xs">
+                        Large Screen Size
+                      </span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        className={`appearance-none w-full border border-gray-300 focus:outline-none rounded-md py-[6.2px] px-3 focus:ring-4 focus:ring-[#C9DFFF] focus:border-blue-300`}
+                      >
+                        <option value=""></option>
+                        <option value="22.9 & Under">22.9&quot; & Under</option>
+                        <option value="23 - 26.9">23&quot; - 26.9&quot;</option>
+                        <option value="27 - 32.9">27&quot; - 32.9&quot;</option>
+                        <option value="33 - 49">33&quot; - 49&quot;</option>
+                        <option value="50 & Larger">50&quot; & Larger</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <IoMdArrowDropdown
+                          className="text-gray-800"
+                          size={20}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="13screenSize"
+                      name="13screenSize"
+                      checked={fields.includes("13screenSize")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "14discount":
+              return (
+                <div className="flex items-end" key={index}>
+                  <div className="space-y-[4px] w-full">
+                    <label className="text-[15px]">{t("discount")}</label>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        name="discount"
+                        placeholder=""
+                        value={formData.discount} // Controlled input
+                        onChange={(e) => handleDiscount(e.target.value)}
+                        className="w-full text-gray-800 px-3 focus:border-blue-300 focus:ring-4 focus:ring-[#C9DFFF] py-[6.2px] border rounded-md outline-none focus:outline-none"
+                      />
+                      <div className="w-[84px] h-[38px] flex items-center p-0.5 bg-gray-200 rounded-md">
+                        <button
+                          onClick={() =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              discountAs: "%",
+                            }))
+                          }
+                          className={`w-full h-full rounded-md ${
+                            formData.discountAs === "%" ? "bg-white" : ""
+                          }`}
+                        >
+                          %
+                        </button>
+                        <button
+                          onClick={() =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              discountAs: "$",
+                            }))
+                          }
+                          className={`w-full h-full rounded-md ${
+                            formData.discountAs === "$" ? "bg-white" : ""
+                          }`}
+                        >
+                          $
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="14discount"
+                      name="14discount"
+                      checked={fields.includes("14discount")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "16freeDelivery":
+              return (
+                <div className="flex items-end" key={index}>
+                  <div className="w-full space-y-[4px] select-none">
+                    <label className="text-[15px]">{t("freeDelivery")}</label>
+                    <div
+                      onClick={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          freeDelivery: !prev.freeDelivery,
+                        }))
+                      }
+                      className="border bg-white rounded-md h-[40.1px] flex items-center px-3 space-x-2 cursor-pointer"
+                      role="switch"
+                      aria-checked={formData.freeDelivery}
+                    >
+                      {/* Toggle Button */}
+                      <div
+                        className={`flex items-center p-0.5 rounded-full w-[35px] h-[20px] border focus:ring-4 transition-all duration-150 ${
+                          formData.freeDelivery ? "bg-[#028DCF]" : "bg-white"
+                        }`}
+                      >
+                        <div
+                          className={`w-[14.5px] h-[14.5px] rounded-full transition-all ${
+                            formData.freeDelivery
+                              ? "bg-white translate-x-[14.1px]"
+                              : "bg-gray-400 translate-x-0"
+                          }`}
+                        ></div>
+                      </div>
+                      {/* Status Text */}
+                      <p className="text-gray-800">
+                        {formData.freeDelivery ? "Yes" : "No"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="16freeDelivery"
+                      name="16freeDelivery"
+                      checked={fields.includes("16freeDelivery")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            case "15price":
+              return (
+                <div key={index} className="flex items-end">
+                  <div className="w-full space-y-[4px]">
+                    <label className="text-[15px]">
+                      {t("price")} <span className="text-red-600">*</span>
+                    </label>
+                    <div className="">
+                      <input
+                        type="text"
+                        value={formData.price} // Display the filtered price
+                        name="price"
+                        placeholder="$"
+                        className="w-full text-gray-800 px-3 focus:border-blue-300 focus:ring-4 focus:ring-[#C9DFFF] py-[6.2px] border rounded-md outline-none focus:outline-none"
+                        onChange={(e) =>
+                          handleValidatedInput("price", e.target.value)
+                        } // Ensures backspace works
+                      />
+                    </div>
+                  </div>
+                  <div className={`pl-2`}>
+                    <input
+                      type="checkbox"
+                      value="15price"
+                      name="15price"
+                      checked={fields.includes("15price")}
+                      onChange={(e) => {
+                        const updatedFields = e.target.checked
+                          ? [...fields, e.target.value]
+                          : fields.filter((item) => item !== e.target.value);
+                        setFields(updatedFields);
+                      }}
+                      className="h-4 w-4"
+                    />
+                  </div>
+                </div>
+              );
+
+            default:
+              return null;
+          }
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default ComputersAccessoriesAdmin;
