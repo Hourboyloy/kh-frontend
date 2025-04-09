@@ -33,7 +33,6 @@ function SmHeader({
   // };
 
   const changeLanguage = (newLocale) => {
-    const router = useRouter();
 
     if (!router) return;
 
