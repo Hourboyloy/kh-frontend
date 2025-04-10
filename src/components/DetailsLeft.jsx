@@ -340,7 +340,7 @@ function DetailsLeft({
               <div className=" w-full">
                 <button
                   onClick={handleRemoveSave}
-                  className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none"
+                  className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none text-nowrap"
                 >
                   <FaBookmark className="text-gray-600" />
                   <span className="text-gray-700 font-semibold">
@@ -352,7 +352,7 @@ function DetailsLeft({
               <div className=" w-full">
                 <button
                   onClick={handleSave}
-                  className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none"
+                  className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none text-nowrap"
                 >
                   <FaBookmark className="text-gray-600" />
                   <span className="text-gray-700 font-semibold">
@@ -367,7 +367,7 @@ function DetailsLeft({
               ""
             ) : (
               <div className="w-full">
-                <button className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none">
+                <button className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none text-nowrap">
                   <PiWarningCircleFill className="text-gray-600" size={19} />
                   <span className="text-gray-700 font-semibold">
                     {t("reportBtn")}
@@ -379,7 +379,7 @@ function DetailsLeft({
             <div className="w-full">
               <button
                 onClick={handleClickShare}
-                className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none"
+                className="w-full h-[38px] flex items-center justify-center bg-[#F0F0F0] space-x-1 px-2 py-1 rounded select-none focus:outline-none outline-none text-nowrap"
               >
                 <IoIosShareAlt className="text-gray-600" size={24} />
                 <span className="text-gray-700 font-semibold">

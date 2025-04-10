@@ -41,6 +41,7 @@
   },
   "LoginPage": {
     "title": "Log in to manage ads or post free ad",
+    "loginTitle": "Login",
     "number": "Phone Number",
     "password": "Password",
     "loginBtn": "Submit",
@@ -60,6 +61,7 @@
   },
   "registerPage": {
     "title": "Register to post free ad",
+    "registerTitle": "បង្កើតគណនី",
     "firstName": "First Name",
     "lastName": "Last Name",
     "phoneNum": "Phone Number",

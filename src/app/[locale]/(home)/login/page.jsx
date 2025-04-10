@@ -90,7 +90,7 @@ function Login() {
   return (
     <div className="lg:pt-5 h-screen ">
       <div className="lg:hidden sticky top-0 z-[9]">
-        <SmHeaderLoginOrRegister name={"Login"} />
+        <SmHeaderLoginOrRegister name={t("loginTitle")} locale={locale} />
       </div>
       <section
         className={`lg:max-w-[560px] py-4 mx-auto lg:border rounded lg:bg-white ${

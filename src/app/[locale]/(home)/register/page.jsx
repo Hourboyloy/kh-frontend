@@ -118,7 +118,7 @@ function Register() {
   return (
     <div className="lg:pt-5 mb-[74px] min-h-screen">
       <div className="lg:hidden sticky top-0 z-[9]">
-        <SmHeaderLoginOrRegister name={"Register"} />
+        <SmHeaderLoginOrRegister name={t("registerTitle")} />
       </div>
 
       <section
